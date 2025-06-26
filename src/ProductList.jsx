@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 function ProductList({ onHomeClick }) {
     const dispatch = useDispatch();
     const [showCart, setShowCart] = useState(false);
-    const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [showPlants, setShowPlants] = useState(true); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
 
     const plantsArray = [
@@ -288,50 +288,45 @@ function ProductList({ onHomeClick }) {
                 <div style={styleObjUl}>
                     <div> <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants Listing</a></div>
                     <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'>
-                                <img src="https://www.flaticon.com/free-icons/retail" alt="Cart" className="cart-icon" />
+                                <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Cart" className="cart-icon" />
                                 {calculateTotalQuantity() > 0 && (
                                 <span className="cart-quantity-badge">{calculateTotalQuantity()}</span>
                             )}</h1></a></div>
                 </div>
             </div>
 
-            {!showCart ? (
-                <>
-
-                        {plantsArray.map((category, index) => ( // Loop through each category in plantsArray
-                        <div key={index}> {/* Unique key for each category div */}
-                            <h1>
-                            {category.category}{/* Display the category name */}
-                            </h1>
-                            <div className="product-list"> {/* Container for the list of plant cards */}
-                            {category.plants.map((plant, plantIndex) => ( // Loop through each plant in the current category
-                                <div className="product-card" key={plantIndex}> {/* Unique key for each plant card */}
-                                <img 
-                                    className="product-image" 
-                                    src={plant.image} // Display the plant image
-                                    alt={plant.name} // Alt text for accessibility
-                                />
-                                <div className="product-title">{plant.name}</div> {/* Display plant name */}
-                                {/* Display other plant details like description and cost */}
-                                <div className="product-description">{plant.description}</div> {/* Display plant description */}
-                                <div className="product-cost">${plant.cost}</div> {/* Display plant cost */}
-                                <button
-                                    className="product-button"
-                                    onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
-                                    disabled={addedToCart[plant.name]}
-                                >
-                                    Add to Cart
-                                    {addedToCart[plant.name] ? "Already in Cart !" : "Add to Cart"}
-                                </button>
-                                </div>
-                            ))}
-                            </div>
-                        </div>
-                        ))}
-                </>
-            ) : (
+                {showCart ? (
                 <CartItem onContinueShopping={handleContinueShopping} />
-            )}
+                ) : showPlants ? (
+                <>
+                    {plantsArray.map((category, index) => (
+                    <div key={index}>
+                        <h1>{category.category}</h1>
+                        <div className="product-list">
+                        {category.plants.map((plant, plantIndex) => (
+                            <div className="product-card" key={plantIndex}>
+                            <img
+                                className="product-image"
+                                src={plant.image}
+                                alt={plant.name}
+                            />
+                            <div className="product-title">{plant.name}</div>
+                            <div className="product-description">{plant.description}</div>
+                            <div className="product-cost">${plant.cost}</div>
+                            <button
+                                className="product-button"
+                                onClick={() => handleAddToCart(plant)}
+                                disabled={addedToCart[plant.name]}
+                            >
+                                {addedToCart[plant.name] ? "Already in Cart !" : "Add to Cart"}
+                            </button>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                    ))}
+                </>
+                ) : null}
         </div>
     );
 }
