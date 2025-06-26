@@ -251,7 +251,8 @@ function ProductList({ onHomeClick }) {
 
     const handleContinueShopping = (e) => {
         e.preventDefault();
-        setShowCart(false);
+          setShowPlants(true);
+          setShowCart(false);
     };
 
     const handleAddToCart = (product) => {
@@ -316,7 +317,7 @@ function ProductList({ onHomeClick }) {
                                     disabled={addedToCart[plant.name]}
                                 >
                                     Add to Cart
-                                    {addedToCart[plant.name] ? "Added" : "Add to Cart"}
+                                    {addedToCart[plant.name] ? "Already in Cart !" : "Add to Cart"}
                                 </button>
                                 </div>
                             ))}
