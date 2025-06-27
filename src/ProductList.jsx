@@ -265,6 +265,10 @@ function ProductList({ onHomeClick }) {
 
 
     const cart = useSelector(state => state.cart.items);
+    const isInCart = (plantName) => {
+     return cart.some(item => item.name === plantName);
+    };
+    const totalQuantity = calculateTotalQuantity();
     const calculateTotalQuantity = () => {
         return cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
     };
@@ -288,8 +292,8 @@ function ProductList({ onHomeClick }) {
                     <div> <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants Listing</a></div>
                     <div> <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}><h1 className='cart'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Cart" className="cart-icon" />
-                                {calculateTotalQuantity() > 0 && (
-                                <span className="cart-quantity-badge">{calculateTotalQuantity()}</span>
+                                {totalQuantity > 0 && (
+                                <span className="cart-quantity-badge">{totalQuantity}</span>
                             )}</h1></a></div>
                 </div>
             </div>
@@ -315,9 +319,9 @@ function ProductList({ onHomeClick }) {
                             <button
                                 className="product-button"
                                 onClick={() => handleAddToCart(plant)}
-                                disabled={addedToCart[plant.name]}
-                            >
-                                {addedToCart[plant.name] ? "Already in Cart !" : "Add to Cart"}
+                                disabled={isInCart(plant.name)}
+                                >
+                                {isInCart(plant.name) ? "Already in Cart!" : "Add to Cart"}
                             </button>
                             </div>
                         ))}
