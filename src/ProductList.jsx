@@ -249,10 +249,9 @@ function ProductList({ onHomeClick }) {
         setShowCart(false); // Hide the cart when navigating to Plants
     };
 
-    const handleContinueShopping = (e) => {
-        e.preventDefault();
-        setShowPlants(true);
-        setShowCart(false);
+    const handleContinueShopping = () => {
+            setShowCart(false);
+            setShowPlants(true);
     };
 
     const handleAddToCart = (product) => {
