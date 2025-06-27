@@ -266,12 +266,13 @@ function ProductList({ onHomeClick }) {
 
     const cart = useSelector(state => state.cart.items);
     const isInCart = (plantName) => {
-     return cart.some(item => item.name === plantName);
+        return cart?.some(item => item.name === plantName) ?? false;
     };
-    const totalQuantity = calculateTotalQuantity();
+    
     const calculateTotalQuantity = () => {
         return cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
     };
+    const totalQuantity = calculateTotalQuantity();
     
     return (
         <div>
