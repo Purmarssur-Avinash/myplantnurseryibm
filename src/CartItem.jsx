@@ -36,9 +36,9 @@ const CartItem = ({ onContinueShopping }) => {
 
   const handleContinueShopping = (e) => {
         e.preventDefault();
-        if (onContinueShopping) {
-            onContinueShopping()
-        }  
+        // Example: Toggle views or redirect to product list
+        setShowCart(false);
+        setShowPlants(true); 
   };
 
   const handleCheckoutShopping = (e) => {
